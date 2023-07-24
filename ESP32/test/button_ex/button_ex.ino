@@ -9,7 +9,6 @@
 #define ECHO 18
 
 int V = 340;//音速
-
 int speed;
 int speedMin = 100;
 
@@ -22,9 +21,9 @@ unsigned long bootTime = 1000*5;//ボタンを押してからベルトコンベ�
 unsigned long pushedMillis = 0;//ボタンを押された時の時間
 unsigned long passedMillis = 0;//ボタンを押されてからの経過時間
 
-int currentDistance = 0;//現在の感知した距離
-int previousDistance = 0;//前回の感知した距離
-int toleranceDistance = 2;//感知の許容変位(cm)
+int currentDistance = 0;
+int previousDistance = 0;
+int toleranceDistance = 2;
 
 void setup() {
   Serial.begin(115200);
