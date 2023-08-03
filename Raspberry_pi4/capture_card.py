@@ -11,12 +11,25 @@ ser = serial.Serial(serial_port, baud_rate)     # シリアル通信セットア
 
 camera = picamera.PiCamera()                    # カメラセットアップ
 
+
+def get_next_filename(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    files = os.listdir(directory)
+    if files:
+        last_file = max(files, key=lambda x : int(x.rstrip('.jpg')))
+        next_num = int(last_file.rstrip('.jpg')) + 1
+    else:
+        next_num = 0
+    return os.path.join(directory, f"{next_num}.jpg")
+
+
 try:
     while True:         # シリアル通信が来るのを待ち続ける
         if ser.in_waiting > 0:
             line = ser.readline().decode('utf-8').rstrip()
             if line == '1':
-                camera.capture(image_path)
+                camera.capture(get_next_filename)
                 print(f"Picture taken and saved at {image_path}")
                 sleep(1)  # 一秒待つ
 finally:
